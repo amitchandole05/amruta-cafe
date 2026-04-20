@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amruta Cafe</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --espresso: #2c1a0e;
+    --latte: #c8956c;
+    --cream: #fdf6ed;
+    --foam: #f5e6d3;
+    --mocha: #7a4f2d;
+    --matcha: #6a8a5e;
+    --accent: #e8a062;
+    --text: #2c1a0e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); color: var(--text); font-family: 'DM Sans', sans-serif; }
+
+  /* NAV */
+  nav {
+    position: fixed; width: 100%; top: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(253,246,237,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(200,149,108,0.2);
+  }
+  .logo {
+    font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 700; color: var(--espresso);
+  }
+  .logo em { color: var(--latte); font-style: italic; font-weight: 300; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--mocha); font-size: 0.85rem; font-weight: 500; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--latte); }
+  .order-btn { background: var(--espresso); color: var(--cream); border: none; padding: 0.65rem 1.8rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+  .order-btn:hover { background: var(--latte); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; padding-top: 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--cream);
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 5rem;
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--foam); color: var(--mocha);
+    padding: 0.4rem 1rem; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 600; margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+  .hero-left h1 {
+    font-family: 'Fraunces', serif; font-size: clamp(3rem, 4.5vw, 5rem);
+    font-weight: 700; line-height: 1.1; color: var(--espresso); margin-bottom: 1.2rem;
+  }
+  .hero-left h1 em { color: var(--latte); font-style: italic; font-weight: 300; }
+  .hero-left p { font-size: 0.95rem; line-height: 1.9; color: var(--mocha); max-width: 400px; margin-bottom: 2.5rem; font-weight: 400; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-espresso { background: var(--espresso); color: var(--cream); border: none; padding: 0.9rem 2rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .btn-espresso:hover { background: var(--latte); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--espresso); border: 2px solid var(--espresso); padding: 0.9rem 2rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .btn-ghost:hover { background: var(--espresso); color: var(--cream); }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(200,149,108,0.25); }
+  .stat-item .num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--espresso); }
+  .stat-item .lab { font-size: 0.72rem; color: var(--mocha); font-weight: 500; }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(145deg, #f5e6d3 0%, #e8c8a8 50%, #d4a882 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero-right::before {
+    content: ''; position: absolute; width: 400px; height: 400px;
+    background: rgba(200,149,108,0.25); border-radius: 50%;
+    top: -100px; right: -100px;
+  }
+  .coffee-showcase {
+    width: 280px; height: 360px;
+    background: white;
+    border-radius: 2rem;
+    box-shadow: 0 30px 60px rgba(44,26,14,0.25);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+    padding: 2rem;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  .coffee-cup { font-size: 6rem; margin-bottom: 1rem; }
+  .coffee-name { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; color: var(--espresso); text-align: center; margin-bottom: 0.4rem; }
+  .coffee-desc { font-size: 0.78rem; color: var(--mocha); text-align: center; margin-bottom: 1rem; }
+  .coffee-price { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; color: var(--latte); margin-bottom: 1rem; }
+  .add-coffee { background: var(--espresso); color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; width: 100%; }
+  .floating-tags {
+    position: absolute; z-index: 2;
+  }
+  .float-tag {
+    background: white; border-radius: 1rem; padding: 0.6rem 1rem;
+    box-shadow: 0 8px 24px rgba(44,26,14,0.15);
+    font-size: 0.78rem; font-weight: 600; color: var(--espresso);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .float-tag.left { bottom: 8rem; left: 2rem; }
+  .float-tag.right { top: 8rem; right: 2rem; }
+
+  /* MENU */
+  .menu-section { padding: 6rem 5rem; }
+  .menu-header { text-align: center; margin-bottom: 3rem; }
+  .menu-header .sub { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--latte); font-weight: 600; margin-bottom: 0.8rem; }
+  .menu-header h2 { font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 700; color: var(--espresso); }
+  .menu-header h2 em { color: var(--latte); font-style: italic; font-weight: 300; }
+  .menu-tabs { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 3rem; flex-wrap: wrap; }
+  .tab-btn { background: var(--foam); color: var(--mocha); border: none; padding: 0.6rem 1.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .tab-btn.active, .tab-btn:hover { background: var(--espresso); color: var(--cream); }
+
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .menu-item {
+    background: white; border-radius: 1.2rem; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(44,26,14,0.08);
+    transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
+  }
+  .menu-item:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(44,26,14,0.15); }
+  .item-img { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 5rem; position: relative; }
+  .item-img:nth-child(1) { background: linear-gradient(135deg, #f5e6d3, #e8c8a8); }
+  .menu-item:nth-child(1) .item-img { background: linear-gradient(135deg, #f5e6d3, #e8c8a8); }
+  .menu-item:nth-child(2) .item-img { background: linear-gradient(135deg, #e8f0e8, #c8dcc8); }
+  .menu-item:nth-child(3) .item-img { background: linear-gradient(135deg, #f0e8f5, #d0c0e0); }
+  .menu-item:nth-child(4) .item-img { background: linear-gradient(135deg, #fdf0e0, #f5d5a8); }
+  .menu-item:nth-child(5) .item-img { background: linear-gradient(135deg, #f5f0e8, #e5dcc8); }
+  .menu-item:nth-child(6) .item-img { background: linear-gradient(135deg, #f0f5e8, #d8e8c8); }
+  .item-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--accent); color: white; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px; }
+  .item-info { padding: 1.2rem; }
+  .item-category { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--matcha); font-weight: 700; margin-bottom: 0.3rem; }
+  .item-name { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--espresso); margin-bottom: 0.3rem; }
+  .item-desc { font-size: 0.78rem; color: var(--mocha); line-height: 1.7; margin-bottom: 0.8rem; }
+  .item-footer { display: flex; justify-content: space-between; align-items: center; }
+  .item-price { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; color: var(--latte); }
+  .item-add { background: var(--espresso); color: white; border: none; padding: 0.5rem 1.2rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+  .item-add:hover { background: var(--latte); }
+
+  /* STORY */
+  .story { display: grid; grid-template-columns: 1fr 1fr; background: var(--espresso); }
+  .story-left { padding: 6rem 5rem; }
+  .story-left .sub { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--latte); margin-bottom: 1rem; }
+  .story-left h2 { font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 700; color: var(--cream); line-height: 1.2; margin-bottom: 1.5rem; }
+  .story-left h2 em { color: var(--accent); font-style: italic; font-weight: 300; }
+  .story-left p { font-size: 0.9rem; line-height: 1.9; color: rgba(253,246,237,0.65); margin-bottom: 1.5rem; }
+  .story-left button { background: var(--accent); color: white; border: none; padding: 0.9rem 2rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; }
+  .story-right {
+    background: linear-gradient(135deg, #7a4f2d, #4a2d1a);
+    display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;
+    padding: 4rem;
+  }
+  .story-card { background: rgba(255,255,255,0.08); border-radius: 1rem; padding: 1.5rem; display: flex; gap: 1.2rem; align-items: flex-start; border: 1px solid rgba(255,255,255,0.1); }
+  .story-card .icon { font-size: 2rem; }
+  .story-card h4 { color: var(--cream); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .story-card p { color: rgba(253,246,237,0.55); font-size: 0.78rem; line-height: 1.7; }
+
+  /* FOOTER */
+  footer {
+    background: var(--foam); padding: 4rem 5rem 2rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+  }
+  .foot-logo { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; color: var(--espresso); margin-bottom: 0.8rem; }
+  .foot-logo em { color: var(--latte); font-style: italic; font-weight: 300; }
+  footer .desc { font-size: 0.82rem; line-height: 1.9; color: var(--mocha); max-width: 280px; margin-bottom: 1.2rem; }
+  footer h4 { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--latte); margin-bottom: 1rem; font-weight: 700; }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  footer a { text-decoration: none; color: var(--mocha); font-size: 0.82rem; transition: color 0.2s; }
+  footer a:hover { color: var(--latte); }
+  .foot-bottom { border-top: 1px solid rgba(200,149,108,0.2); margin: 1.5rem 5rem 0; padding: 1.5rem 0; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--mocha); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Amruta <em>Cafe</em></div>
+  <ul class="nav-links">
+    <li><a href="#">Menu</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Visit Us</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="order-btn">☕ Order Now</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">☕ Open Daily · 7AM – 11PM</div>
+    <h1>Where Every Sip<br/>Tells a <em>Story</em></h1>
+    <p>Welcome to Amruta Cafe — a warm, cozy retreat in the heart of Pune where artisan coffee meets heartfelt food. Made fresh, served with love.</p>
+    <div class="hero-btns">
+      <button class="btn-espresso">Order Online</button>
+      <button class="btn-ghost">View Menu</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="num">50+</div><div class="lab">Menu Items</div></div>
+      <div class="stat-item"><div class="num">4.9 ⭐</div><div class="lab">Avg Rating</div></div>
+      <div class="stat-item"><div class="num">10K+</div><div class="lab">Happy Guests</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="coffee-showcase">
+      <div class="coffee-cup">☕</div>
+      <div class="coffee-name">Signature Latte</div>
+      <div class="coffee-desc">Double shot · Oat milk · Vanilla</div>
+      <div class="coffee-price">₹220</div>
+      <button class="add-coffee">Add to Order</button>
+    </div>
+    <div class="float-tag left">🌿 Organic Beans</div>
+    <div class="float-tag right">⚡ 20 min delivery</div>
+  </div>
+</section>
+
+<section class="menu-section">
+  <div class="menu-header">
+    <div class="sub">Our Offerings</div>
+    <h2>Crafted with <em>Passion</em></h2>
+  </div>
+  <div class="menu-tabs">
+    <button class="tab-btn active">All</button>
+    <button class="tab-btn">☕ Coffee</button>
+    <button class="tab-btn">🍵 Tea & More</button>
+    <button class="tab-btn">🥐 Breakfast</button>
+    <button class="tab-btn">🥗 Salads</button>
+    <button class="tab-btn">🍰 Desserts</button>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item">
+      <div class="item-img">☕<div class="item-badge">Bestseller</div></div>
+      <div class="item-info">
+        <div class="item-category">Coffee</div>
+        <div class="item-name">Signature Latte</div>
+        <div class="item-desc">Smooth double espresso with steamed oat milk and a hint of vanilla.</div>
+        <div class="item-footer">
+          <div class="item-price">₹220</div>
+          <button class="item-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-img">🍵<div class="item-badge">New</div></div>
+      <div class="item-info">
+        <div class="item-category">Tea</div>
+        <div class="item-name">Matcha Cloud</div>
+        <div class="item-desc">Japanese ceremonial matcha with coconut milk foam and honey drizzle.</div>
+        <div class="item-footer">
+          <div class="item-price">₹195</div>
+          <button class="item-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-img">🥐</div>
+      <div class="item-info">
+        <div class="item-category">Bakery</div>
+        <div class="item-name">Butter Croissant</div>
+        <div class="item-desc">Flaky, golden French-style croissant baked fresh every morning.</div>
+        <div class="item-footer">
+          <div class="item-price">₹120</div>
+          <button class="item-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-img">🥗<div class="item-badge">Healthy</div></div>
+      <div class="item-info">
+        <div class="item-category">Salads</div>
+        <div class="item-name">Garden Fresh Bowl</div>
+        <div class="item-desc">Seasonal greens, cherry tomatoes, cucumber, feta & lemon dressing.</div>
+        <div class="item-footer">
+          <div class="item-price">₹280</div>
+          <button class="item-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-img">🍰</div>
+      <div class="item-info">
+        <div class="item-category">Desserts</div>
+        <div class="item-name">Belgian Waffle</div>
+        <div class="item-desc">Crispy Belgian waffle topped with Nutella, banana slices and whipped cream.</div>
+        <div class="item-footer">
+          <div class="item-price">₹250</div>
+          <button class="item-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-img">🥪<div class="item-badge">Chef's Pick</div></div>
+      <div class="item-info">
+        <div class="item-category">Snacks</div>
+        <div class="item-name">Club Sandwich</div>
+        <div class="item-desc">Triple-decker with grilled chicken, cheese, lettuce and spicy mayo.</div>
+        <div class="item-footer">
+          <div class="item-price">₹320</div>
+          <button class="item-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="story-left">
+    <div class="sub">Our Story</div>
+    <h2>Brewed with <em>Heart</em> since 2018</h2>
+    <p>Amruta Cafe was born from a dream — to create a space where every cup tells a story and every bite feels like home. Founded in Pune, we've grown from a tiny corner shop to a beloved community hub.</p>
+    <p>We source our beans directly from small farms in Coorg and Chikmagalur, ensuring every sip is as ethical as it is delicious.</p>
+    <button>Learn Our Story →</button>
+  </div>
+  <div class="story-right">
+    <div class="story-card">
+      <div class="icon">🌱</div>
+      <div>
+        <h4>Farm-to-Cup</h4>
+        <p>Beans sourced directly from certified organic farms in South India.</p>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="icon">♻️</div>
+      <div>
+        <h4>Eco-Friendly</h4>
+        <p>All packaging is 100% compostable and we run on solar energy.</p>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="icon">👩‍🍳</div>
+      <div>
+        <h4>Chef-crafted Menu</h4>
+        <p>Every item on our menu is developed by our in-house culinary team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="foot-logo">Amruta <em>Cafe</em></div>
+    <p class="desc">A warm place to sip, eat and belong. Visit us in Pune or order online — we bring the cafe to your door.</p>
+    <div style="font-size:0.8rem;color:var(--mocha);">📍 MG Road, Pune · 📞 +91 98765 43210</div>
+  </div>
+  <div>
+    <h4>Menu</h4>
+    <ul>
+      <li><a href="#">Coffee</a></li>
+      <li><a href="#">Tea & More</a></li>
+      <li><a href="#">Breakfast</a></li>
+      <li><a href="#">Salads</a></li>
+      <li><a href="#">Desserts</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Visit</h4>
+    <ul>
+      <li><a href="#">Find Us</a></li>
+      <li><a href="#">Opening Hours</a></li>
+      <li><a href="#">Book a Table</a></li>
+      <li><a href="#">Events</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Connect</h4>
+    <ul>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">Zomato</a></li>
+      <li><a href="#">Swiggy</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="foot-bottom">
+  <span>© 2026 Amruta Cafe. All Rights Reserved.</span>
+  <span>Made with ☕ & ♥ in Pune</span>
+</div>
+
+</body>
+</html>
+
